@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+  <!-- res.partner inherit form view -->
+  <record id="inherit_res_partner_form" model="ir.ui.view">
+    <field name="name">inherit_res_partner_form</field>
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.view_partner_form"/>
+    <field name="arch" type="xml">
+        <!-- Add your xpath here -->
+        <xpath expr="//field[@name='vat']" position="after">
+          <field name="is_doctor"/>
+          <field name="is_patient"/>
+        </xpath>
+    </field>
+  </record>
+
+  <!-- res.partner inherit search view -->
+  <record id="res_partner_search_inherit" model="ir.ui.view">
+    <field name="name">res.partner.inherit.view.search</field>
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.view_res_partner_filter"/>
+    <field name="arch" type="xml">
+        <!-- Add your xpath here -->
+        <field name="parent_id" position="after">
+          <filter string="Doctor" name="doctor" domain="[('is_doctor','=',True)]"/>
+          <filter string="Patient" name="patient" domain="[('is_patient','=',True)]"/>
+        </field>
+        
+    </field>
+  </record>
+
+  <!-- res.partner doctor action window -->
+  <record id="doctor_action_window" model="ir.actions.act_window">
+    <field name="name">Doctor</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">res.partner</field>
+    <field name="view_mode">tree,form</field>
+    <!-- <field name="view_type">form</field> -->
+    <field name="context">{
+        'search_default_doctor': 1,
+        'default_is_doctor': True,
+    }</field>
+    <!-- <field name="domain">[]</field>
+    <field name="context">{}</field>
+    <field name="target">{current}</field> -->
+  </record>
+
+  <!-- This Menu Item must have a parent and an action -->
+  <menuitem id="doctor_menu_act" name="Doctor" parent="dental_care_master_menu_categ" action="doctor_action_window" sequence="30"/>
+
+  <!-- res.partner patient action window -->
+  <record id="patient_action_window" model="ir.actions.act_window">
+    <field name="name">Patient</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">res.partner</field>
+    <field name="view_mode">tree,form</field>
+    <!-- <field name="view_type">form</field> -->
+    <field name="context">{
+        'search_default_patient': 1,
+        'default_is_patient': True,
+    }</field>
+    <!-- <field name="domain">[]</field>
+    <field name="context">{}</field>
+    <field name="target">{current}</field> -->
+  </record>
+
+  <!-- This Menu Item must have a parent and an action -->
+  <menuitem id="patient_menu_act" name="Patient" parent="dental_care_master_menu_categ" action="dental_care_patient_action" sequence="40"/>
+  </data>
+</odoo>

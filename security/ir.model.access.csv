@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_dental_care_service,dental.care.service,model_dental_care_service,base.group_user,1,1,1,1
+access_dental_care_doctor,dental.care.doctor,model_dental_care_doctor,base.group_user,1,1,1,1
+access_dental_care_patient,dental.care.patient,model_dental_care_patient,base.group_user,1,1,1,1
+access_dental_care_appointment,dental.care.appointments,model_dental_care_appointment,base.group_user,1,1,1,1

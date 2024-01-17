@@ -1,0 +1,117 @@
+<odoo>
+  <data>
+    <!-- dental.care.patient tree view -->
+    <record id="dental_care_patient_view_tree" model="ir.ui.view">
+      <field name="name">dental.care.patient.view.tree</field>
+      <field name="model">dental.care.patient</field>
+      <field name="arch" type="xml">
+        <tree>
+          <!-- Add your fields here -->
+          <field name="patient_id"/>
+          <field name="doctor_id"/>
+          <field name="service_id"/>
+          <field name="emergency_number"/>
+          <field name="date_of_birth"/>
+          <field name="blood_type"/>
+          <field name="height"/>
+          <field name="weight"/>
+          <field name="is_vaccinated"/>
+          <field name="vaccine_name"/>
+        </tree>
+      </field>
+    </record>
+
+    <!-- dental_care_patient search view -->
+    <record id="dental_care_patient_view_search" model="ir.ui.view">
+      <field name="name">dental.care.patient.view.search</field>
+      <field name="model">dental.care.patient</field>
+      <field name="arch" type="xml">
+        <search string="Search Patient">
+          <!-- Add your fields here -->
+          <field name="patient_id"/>
+          <field name="doctor_id"/>
+          <field name="service_id"/>
+          <field name="emergency_number"/>
+          <field name="date_of_birth"/>
+          <field name="blood_type"/>
+          <field name="height"/>
+          <field name="weight"/>
+          <field name="is_vaccinated"/>
+          <field name="vaccine_name"/>
+
+          <group string="Group By">
+            <filter name="group_by_service" string="Service" context="{'group_by': 'service_id'}"/>
+          </group>
+        </search>
+      </field>
+    </record>
+
+    <!-- dental.care.patient form view -->
+    <record id="dental_care_patient_view_form" model="ir.ui.view">
+      <field name="name">dental.care.patient.view.form</field>
+      <field name="model">dental.care.patient</field>
+      <field name="arch" type="xml">
+        <form string="">
+          <sheet>
+            <group>
+              <!-- Add your fields here -->
+              <notebook>
+                <page string="Patient Data" name="is_pacient">
+                    <field name="patient_id"/>
+                    <field name="emergency_number"/>
+                    <field name="date_of_birth"/>
+                    <field name="blood_type"/>
+                    <field name="height"/>
+                    <field name="weight"/>
+                </page>
+              </notebook>
+              <group>
+                
+              </group>
+
+              <group>
+                <field name="doctor_id"/>
+              </group>
+
+              <group>
+                <field name="service_id"/>
+              </group>
+
+              <notebook>
+                <page string="Vaccine" name="is_vaccinated">
+                    <field name="is_vaccinated"/>
+                    <field name="vaccine_name"/>
+                </page>
+              </notebook>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+
+    <!-- dental.care.patient action window -->
+    <record id="dental_care_patient_action" model="ir.actions.act_window">
+      <field name="name">Patient</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">dental.care.patient</field>
+      <field name="view_mode">tree,form</field>
+      <!-- <field name="view_type">form</field> -->
+      <!-- <field name="domain">[]</field>
+      <field name="context">{}</field>
+      <field name="target">{current}</field> -->
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+          <!-- Add Text Here -->
+        </p>
+        <p>
+          <!-- More details about what a user can do with this object will be OK --> 
+        
+        </p>
+      </field>
+    </record>
+
+    <!-- This Menu Item must have a parent and an action -->
+    <menuitem id="patient_menu_act" name="Patient" parent="dental_care_master_menu_categ" action="dental_care_patient_action" sequence="40"/>
+  </data>
+</odoo>

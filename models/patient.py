@@ -1,0 +1,66 @@
+from odoo import api, fields, models
+
+class Patient(models.Model):
+    _name = 'dental.care.patient'
+    _description = 'Data Patient'
+
+    
+    patient_id = fields.Many2one(
+        string='Patient',
+        comodel_name='res.partner',
+        domain="[('is_patient', '=', True)]",
+        required=True
+    )
+
+    doctor_id = fields.Many2one(
+        string='Doctor',
+        comodel_name='res.partner',
+        domain="[('is_doctor', '=', True)]",
+        required=True
+    )
+
+    service_id = fields.Many2one(
+        string='Service',
+        comodel_name='dental.care.service',
+        ondelete='restrict'
+    )
+
+    emergency_number = fields.Char(
+        string='Emergency Number',
+        related='patient_id.phone',
+        readonly=True
+    )
+
+    date_of_birth = fields.Date(
+        string='date_of_birth'
+    )
+
+    
+    blood_type = fields.Selection(
+        string='Blood Type',
+        selection=[
+            ('a', 'A'),
+            ('b', 'B'),
+            ('ab', 'AB'),
+            ('o', 'O'),
+        ],
+    )
+    
+    height = fields.Float(
+        string='Height',
+    )
+
+    
+    weight = fields.Float(
+        string='Weight',
+    )
+
+    
+    is_vaccinated = fields.Boolean(
+        string='Is Vaccinated',
+    )
+    
+    
+    vaccine_name = fields.Char(
+        string='Vaccine Name',
+    )

@@ -1,0 +1,99 @@
+<odoo>
+  <data>
+    <!-- dental.care.appointment tree view -->
+    <record id="dental_care_appointment_view_tree" model="ir.ui.view">
+      <field name="name">dental.care.appointment.view.tree</field>
+      <field name="model">dental.care.appointment</field>
+      <field name="arch" type="xml">
+        <tree>
+          <!-- Add your fields here -->
+          <field name="patient_id"/>
+          <field name="doctor_id"/>
+          <field name="service_id"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="dental_care_appointment_view_calendar" model="ir.ui.view">
+      <field name="name">dental.care.appointment.view.calendar</field>
+      <field name="model">dental.care.appointment</field>
+      <field name="arch" type="xml">
+        <calendar string="Dental Care Appointment" date_start="date_start" date_stop="date_end">
+        </calendar>
+      </field>
+    </record>
+
+
+    <!-- dental_care_appointment search view -->
+    <record id="dental_care_appointment_view_search" model="ir.ui.view">
+      <field name="name">dental.care.appointment.view.search</field>
+      <field name="model">dental.care.appointment</field>
+      <field name="arch" type="xml">
+        <search string="Search Appointment">
+          <!-- Add your fields here -->
+          <field name="patient_id"/>
+          <field name="doctor_id"/>
+          <field name="service_id"/>
+
+          <group string="Group By">
+            <filter name="group_by_doctor" string="Doctor" context="{'group_by': 'doctor_id'}"/>
+            <filter name="group_by_patient" string="Patient" context="{'group_by': 'patient_id'}"/>
+            <filter name="group_by_service" string="Service" context="{'group_by': 'service_id'}"/>
+          </group>
+        </search>
+      </field>
+    </record>
+
+    <!-- dental.care.appointment form view -->
+    <record id="dental_care_appointment_view_form" model="ir.ui.view">
+      <field name="name">dental.care.appointment.view.form</field>
+      <field name="model">dental.care.appointment</field>
+      <field name="arch" type="xml">
+        <form string="">
+          <sheet>
+            <group>
+              <!-- Add your fields here -->
+              <group>
+                <field name="service_id"/>
+              </group>
+
+              <notebook>
+                <page string="Patient" name="Patient">
+                    <field name="patient_id"/>
+                </page>
+                <page name="Doctor" string="Doctor">
+                  <field name="doctor_id"/>
+                </page>
+              </notebook>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+
+    <!-- dental.care.appointment action window -->
+    <record id="dental_care_appointment_action" model="ir.actions.act_window">
+      <field name="name">Appointment</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">dental.care.appointment</field>
+      <field name="view_mode">tree,form</field>
+      <!-- <field name="view_type">form</field> -->
+      <!-- <field name="domain">[]</field>
+      <field name="context">{}</field>
+      <field name="target">{current}</field> -->
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">
+          <!-- Add Text Here -->
+        </p>
+        <p>
+          <!-- More details about what a user can do with this object will be OK --> 
+        
+        </p>
+      </field>
+    </record>
+
+    <!-- This Menu Item must have a parent and an action -->
+    <menuitem id="appointment_menu_act" name="Appointment" parent="dental_care_master_menu_categ" action="dental_care_appointment_action" sequence="20"/>
+  </data>
+</odoo>
