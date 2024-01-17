@@ -47,7 +47,7 @@
   </record>
 
   <!-- This Menu Item must have a parent and an action -->
-  <menuitem id="doctor_menu_act" name="Doctor" parent="dental_care_master_menu_categ" action="doctor_action_window" sequence="30"/>
+  <menuitem id="doctor_menu_act" name="Doctor" parent="dental_care_master_menu_categ" action="dental_care_doctor_action" sequence="30"/>
 
   <!-- res.partner patient action window -->
   <record id="patient_action_window" model="ir.actions.act_window">

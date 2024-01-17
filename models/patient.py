@@ -28,11 +28,11 @@ class Patient(models.Model):
     emergency_number = fields.Char(
         string='Emergency Number',
         related='patient_id.phone',
-        readonly=True
+        readonly=False
     )
 
     date_of_birth = fields.Date(
-        string='date_of_birth'
+        string='Date Of Birth'
     )
 
     

@@ -56,33 +56,39 @@
             <group>
               <!-- Add your fields here -->
               <notebook>
-                <page string="Patient Data" name="is_pacient">
+                <page string="Data Patient" name="is_patient">
+                  <group>
                     <field name="patient_id"/>
+                  </group>
+                  <group>
                     <field name="emergency_number"/>
+                  </group>
+                  <group>
                     <field name="date_of_birth"/>
-                    <field name="blood_type"/>
+                  </group>
+                  <group>
+                    <field name="blood_type" widget='radio' options="{'horizontal': true}"/>
+                  </group>
+                  <group>
                     <field name="height"/>
+                  </group>  
+                  <group>
                     <field name="weight"/>
+                  </group>
                 </page>
-              </notebook>
-              <group>
-                
-              </group>
-
-              <group>
-                <field name="doctor_id"/>
-              </group>
-
-              <group>
-                <field name="service_id"/>
-              </group>
-
-              <notebook>
                 <page string="Vaccine" name="is_vaccinated">
                     <field name="is_vaccinated"/>
                     <field name="vaccine_name"/>
                 </page>
               </notebook>
+              <group string="Hospital Information">
+                <group>
+                  <field name="doctor_id"/>
+                </group>
+                <group>
+                  <field name="service_id"/>
+                </group>
+              </group>
             </group>
           </sheet>
         </form>

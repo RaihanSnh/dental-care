@@ -18,8 +18,7 @@
       <field name="name">dental.care.appointment.view.calendar</field>
       <field name="model">dental.care.appointment</field>
       <field name="arch" type="xml">
-        <calendar string="Dental Care Appointment" date_start="date_start" date_stop="date_end">
-        </calendar>
+        <calendar string="Dental Care Appointment" date_start="date_start" date_stop="date_end" color="doctor_id"/>
       </field>
     </record>
 
@@ -53,16 +52,21 @@
           <sheet>
             <group>
               <!-- Add your fields here -->
-              <group>
-                <field name="service_id"/>
-              </group>
-
-              <notebook>
-                <page string="Patient" name="Patient">
+                <group string="Patient" name="Patient">
                     <field name="patient_id"/>
-                </page>
-                <page name="Doctor" string="Doctor">
+                </group>
+                <group name="Service" string="Service">
+                  <field name="service_id"/>
+                </group>
+                <group name="Doctor" string="Doctor">
                   <field name="doctor_id"/>
+                </group>
+              <notebook>
+                <page name="schedule" string="Schedule">
+                  <group>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                  </group>
                 </page>
               </notebook>
             </group>
@@ -77,7 +81,7 @@
       <field name="name">Appointment</field>
       <field name="type">ir.actions.act_window</field>
       <field name="res_model">dental.care.appointment</field>
-      <field name="view_mode">tree,form</field>
+      <field name="view_mode">tree,form,calendar</field>
       <!-- <field name="view_type">form</field> -->
       <!-- <field name="domain">[]</field>
       <field name="context">{}</field>
