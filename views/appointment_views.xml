@@ -50,26 +50,26 @@
       <field name="arch" type="xml">
         <form string="">
           <sheet>
-            <group>
               <!-- Add your fields here -->
-                <group string="Patient" name="Patient">
+                <group string="Patient Data">
                     <field name="patient_id"/>
+                    <field name="service_id"/>
                 </group>
-                <group name="Service" string="Service">
-                  <field name="service_id"/>
-                </group>
-                <group name="Doctor" string="Doctor">
-                  <field name="doctor_id"/>
-                </group>
-              <notebook>
-                <page name="schedule" string="Schedule">
-                  <group>
-                    <field name="date_start"/>
-                    <field name="date_end"/>
-                  </group>
-                </page>
-              </notebook>
-            </group>
+                <notebook>
+                  <page name="doctor_id" string="Doctor">
+                    <group>
+                      <field name="doctor_id"/>
+                    </group>
+                  </page>
+                </notebook>
+                <notebook>
+                  <page name="schedule" string="Schedule">
+                    <group>
+                      <field name="date_start"/>
+                      <field name="date_end"/>
+                    </group>
+                  </page>
+                </notebook>
           </sheet>
         </form>
       </field>

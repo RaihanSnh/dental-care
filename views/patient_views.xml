@@ -48,55 +48,37 @@
 
     <!-- dental.care.patient form view -->
     <record id="dental_care_patient_view_form" model="ir.ui.view">
-      <field name="name">dental.care.patient.view.form</field>
-      <field name="model">dental.care.patient</field>
-      <field name="arch" type="xml">
+    <field name="name">dental.care.patient.view.form</field>
+    <field name="model">dental.care.patient</field>
+    <field name="arch" type="xml">
         <form string="">
-          <sheet>
-            <div class="oe_button_box" name="button_box">
-                <field name="image" widget="image" class="oe_avatar"/>
-            </div>
-            <group>
-              <!-- Add your fields here -->
-              <notebook>
-                <page string="Data Patient" name="is_patient">
-                  <group>
-                    <field name="patient_id"/>
-                  </group>
-                  <group>
-                    <field name="emergency_number"/>
-                  </group>
-                  <group>
-                    <field name="date_of_birth"/>
-                  </group>
-                  <group>
-                    <field name="blood_type" widget='radio' options="{'horizontal': true}"/>
-                  </group>
-                  <group>
-                    <field name="height"/>
-                  </group>  
-                  <group>
-                    <field name="weight"/>
-                  </group>
-                </page>
-                <page string="Vaccine" name="is_vaccinated">
-                    <field name="is_vaccinated"/>
-                    <field name="vaccine_name"/>
-                </page>
-              </notebook>
-              <group string="Hospital Information">
+            <sheet>
+                <div class="oe_title">
+                    <h1><field name="patient_id"/></h1>
+                    <field name="image" widget="image" class="oe_avatar"/>
+                </div>
                 <group>
-                  <field name="doctor_id"/>
+                    <group string="Patient Information:">
+                        <field name="emergency_number"/>
+                        <field name="date_of_birth"/>
+                        <field name="blood_type" widget='radio' options="{'horizontal': true}"/>
+                        <field name="height"/>
+                        <field name="weight"/>
+                    </group>
+                    <group string="Hospital Information:">
+                        <field name="doctor_id"/>
+                        <field name="service_id"/>
+                    </group>
+                    <group string="Medical History">
+                        <field name="is_vaccinated"/>
+                        <field name="vaccine_name"/>
+                    </group>
                 </group>
-                <group>
-                  <field name="service_id"/>
-                </group>
-              </group>
-            </group>
-          </sheet>
+            </sheet>
         </form>
-      </field>
+    </field>
     </record>
+
 
 
     <!-- dental.care.patient action window -->
@@ -104,7 +86,7 @@
       <field name="name">Patient</field>
       <field name="type">ir.actions.act_window</field>
       <field name="res_model">dental.care.patient</field>
-      <field name="view_mode">tree,form</field>
+      <field name="view_mode">tree,form,kanban</field>
       <!-- <field name="view_type">form</field> -->
       <!-- <field name="domain">[]</field>
       <field name="context">{}</field>
@@ -118,6 +100,36 @@
         
         </p>
       </field>
+    </record>
+
+    <record id="dental_care_patient_view_kanban" model="ir.ui.view">
+    <field name="name">dental.care.patient.view.kanban</field>
+    <field name="model">dental.care.patient</field>
+    <field name="arch" type="xml">
+        <kanban class="o_kanban_mobile">
+            <templates>
+                <t t-name="kanban-box">
+                    <div class="oe_kanban_global_click" t-attf-style="background-color: hsl(#{Math.random()*360}, 50%, 75%);">
+                        <div class="oe_kanban_details">
+                            <div class="oe_kanban_card">
+                                <div class="d-flex">
+                                    <div class="oe_avatar_container mr-3">
+                                        <field name="image" widget="image" class="oe_avatar" style="width:100px; height:100px;"/>
+                                    </div>
+                                    <div class="oe_kanban_content" style="color: #000; margin-left: 15px;">
+                                        <h2><field name="patient_id"/></h2>
+                                        <div>Emergency Number: <field name="emergency_number"/></div>
+                                        <div>Doctor: <field name="doctor_id"/></div>
+                                        <div>Service: <field name="service_id"/></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </templates>
+        </kanban>
+    </field>
     </record>
 
     <!-- This Menu Item must have a parent and an action -->

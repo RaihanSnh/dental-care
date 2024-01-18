@@ -31,23 +31,27 @@
 
     <!-- dental.care.service form view -->
     <record id="dental_care_service_view_form" model="ir.ui.view">
-      <field name="name">dental.care.service.view.form</field>
-      <field name="model">dental.care.service</field>
-      <field name="arch" type="xml">
+    <field name="name">dental.care.service.view.form</field>
+    <field name="model">dental.care.service</field>
+    <field name="arch" type="xml">
         <form string="">
-          <sheet>
-            <group>
-              <!-- Add your fields here -->
-              <group>
-                <field name="name"/>
-                <field name="floor"/>
-                <field name="room"/>
-              </group>
-            </group>
-          </sheet>
+            <sheet>
+                <group>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <newline/>
+                    <group>
+                        <field name="floor"/>
+                        <field name="room"/>
+                    </group>
+                </group>
+            </sheet>
         </form>
-      </field>
+    </field>
     </record>
+
+
 
     <!-- dental.care.service action window -->
     <record id="dental_care_service_action" model="ir.actions.act_window">
