@@ -53,6 +53,9 @@
       <field name="arch" type="xml">
         <form string="">
           <sheet>
+            <div class="oe_button_box" name="button_box">
+                <field name="image" widget="image" class="oe_avatar"/>
+            </div>
             <group>
               <!-- Add your fields here -->
               <notebook>

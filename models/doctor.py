@@ -18,3 +18,5 @@ class Doctor(models.Model):
         comodel_name='dental.care.service',
         ondelete='restrict',
     )
+
+    image = fields.Binary(string="", attachment=True)

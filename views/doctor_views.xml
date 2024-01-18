@@ -32,24 +32,28 @@
 
     <!-- dental.care.doctor form view -->
     <record id="dental_care_doctor_view_form" model="ir.ui.view">
-      <field name="name">dental.care.doctor.view.form</field>
-      <field name="model">dental.care.doctor</field>
+    <field name="name">dental.care.doctor.view.form</field>
+    <field name="model">dental.care.doctor</field>
       <field name="arch" type="xml">
         <form string="">
-          <sheet>
-            <group>
-              <!-- Add your fields here -->
-              <group>
-                <field name="doctor_id"/>
-              </group>
-              <group>
-                <field name="service_id"/>
-              </group>
-            </group>
-          </sheet>
+            <sheet>
+                <div class="oe_button_box" name="button_box">
+                    <field name="image" widget="image" class="oe_avatar"/>
+                </div>
+                <group>
+                    <!-- Add your fields here -->
+                    <group>
+                        <field name="doctor_id"/>
+                    </group>
+                    <group>
+                        <field name="service_id"/>
+                    </group>
+                </group>
+            </sheet>
         </form>
       </field>
     </record>
+
 
 
     <!-- dental.care.doctor action window -->

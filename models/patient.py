@@ -64,3 +64,5 @@ class Patient(models.Model):
     vaccine_name = fields.Char(
         string='Vaccine Name',
     )
+
+    image = fields.Binary(string="", attachment=True)
