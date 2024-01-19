@@ -40,7 +40,9 @@
           <field name="vaccine_name"/>
 
           <group string="Group By">
+            <filter name="group_by_doctor" string="Doctor" context="{'group_by': 'doctor_id'}"/>
             <filter name="group_by_service" string="Service" context="{'group_by': 'service_id'}"/>
+            <filter name="group_by_blood_type" string="Blood Type" context="{'group_by': 'blood_type'}"/>
           </group>
         </search>
       </field>

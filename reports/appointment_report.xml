@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_report_dental_care" model="ir.actions.report">
+            <field name="name">Appointment Report</field>
+            <field name="model">dental.care.appointment</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">dental_care.report_dental_care</field>
+            <field name="report_file">dental_care.report_dental_care</field>
+            <field name="binding_model_id" eval="False"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <template id="report_dental_care" name="report_dental_care">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <h3 class="text-center" style="color: #007BFF;">
+                                Appointment Report
+                                <br/>
+                            </h3>
+                            <p><b>Patient :</b> <span t-field="doc.patient_id" style="font-size: 18px;"/></p>
+                            <p><b>Service :</b> <span t-field="doc.service_id" style="font-size: 18px;"/></p>
+
+                            <table class="table table-bordered table-sm" style="width: 100%;">
+                                <tr style="background-color: #007BFF; color: white;">
+                                    <th>Start Date Appointment</th>
+                                    <th>End Date Appointment</th>
+                                </tr>
+                                <tr>
+                                    <td><span t-esc="doc.date_start"/></td>
+                                    <td><span t-esc="doc.date_end"/></td>
+                                </tr>
+                            </table>
+                            <footer>
+                                <div style="margin-top: 550px; text-align: left; word-wrap: break-word; max-width: 300px; position: absolute; right: 0;">
+                                    <p><b>Doctor:</b></p>
+                                    <p style="margin-top: 200px;"><span t-field="doc.doctor_id"/></p>
+                                </div>
+                            </footer>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

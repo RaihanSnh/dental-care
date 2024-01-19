@@ -29,7 +29,9 @@ Long description of module's purpose
         'views/doctor_views.xml',
         'views/patient_views.xml',
         'views/appointment_views.xml',
-        'views/res_partner.xml'
+        'views/res_partner.xml',
+
+        'reports/appointment_report.xml',
     ],
 
     # only loaded in demonstration mode

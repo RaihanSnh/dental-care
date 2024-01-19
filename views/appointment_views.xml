@@ -39,6 +39,11 @@
             <filter name="group_by_patient" string="Patient" context="{'group_by': 'patient_id'}"/>
             <filter name="group_by_service" string="Service" context="{'group_by': 'service_id'}"/>
           </group>
+        
+          <group string="Filter">
+              <filter name="date_start" string="Today Start Date" domain="[('date_start', '>=', context_today().strftime('%m/%d/%Y 00:00:00')), ('date_start', '&lt;=', context_today().strftime('%m/%d/%Y 23:59:59'))]"/>
+              <filter name="date_end" string="Today End Date" domain="[('date_end', '>=', context_today().strftime('%m/%d/%Y 00:00:00')), ('date_end', '&lt;=', context_today().strftime('%m/%d/%Y 23:59:59'))]"/>
+          </group>
         </search>
       </field>
     </record>
@@ -49,6 +54,9 @@
       <field name="model">dental.care.appointment</field>
       <field name="arch" type="xml">
         <form string="">
+          <header>
+            <button string="Export PDF" type="object" class="oe_highlight" name="report_appointment" />
+          </header>
           <sheet>
               <!-- Add your fields here -->
                 <group string="Patient Data">

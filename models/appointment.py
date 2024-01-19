@@ -35,3 +35,6 @@ class Appointment(models.Model):
         'End', required=True, tracking=True, default=lambda self: fields.Datetime.today() + timedelta(hours=0.5),
         compute='_compute_stop', readonly=False, store=True,
         help="End Date Appointment")
+    
+    def report_appointment(self):
+        return self.env.ref("dental_care.action_report_dental_care").report_action(self)
