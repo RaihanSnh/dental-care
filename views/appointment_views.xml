@@ -56,17 +56,22 @@
         <form string="">
           <header>
             <button string="Export PDF" type="object" class="oe_highlight" name="report_appointment" />
+            <button type="object" name="action_pending" string="Pending" class="oe_highlight" invisible="state != 'schedule'"/>
+            <button type="object" name="action_examination" string="examination" class="oe_highlight" invisible="state != 'pending'"/>
+            <button type="object" name="action_cancel" string="Cancel" class="oe_highlight" invisible="state not in ['pending', 'examination']" confirm="Are You Sure to do This Action"/>
+            <button type="object" name="action_reset" string="Reset Schedule" class="oe_highlight" invisible="state != 'cancel'" confirm="Are You Sure to do This Action"/>
+            <field name="state" widget="statusbar" statusbar_visible="schedule,pending,examination"/>
           </header>
           <sheet>
               <!-- Add your fields here -->
                 <group string="Patient Data">
-                    <field name="patient_id"/>
-                    <field name="service_id"/>
+                    <field name="patient_id" readonly="state != 'schedule'"/>
+                    <field name="service_id" readonly="state != 'schedule'"/>
                 </group>
                 <notebook>
                   <page name="doctor_id" string="Doctor">
                     <group>
-                      <field name="doctor_id"/>
+                      <field name="doctor_id" readonly="state != 'schedule'"/>
                     </group>
                   </page>
                 </notebook>

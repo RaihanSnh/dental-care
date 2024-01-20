@@ -36,5 +36,25 @@ class Appointment(models.Model):
         compute='_compute_stop', readonly=False, store=True,
         help="End Date Appointment")
     
+    state = fields.Selection(
+        string='State',
+        selection=[('schedule', 'Schedule'), ('pending', 'Pending'), ('examination', 'Examination'), ('cancel', 'Cancel')],
+        readonly=True,
+        default='schedule',
+        required=True
+    )
+
+    def action_pending(self):
+        self.write({'state':'pending'})
+
+    def action_examination(self):
+        self.write({'state':'examination'})
+
+    def action_cancel(self):
+        self.write({'state':'cancel'})
+
+    def action_reset(self):
+        self.write({'state':'schedule'})
+
     def report_appointment(self):
         return self.env.ref("dental_care.action_report_dental_care").report_action(self)
