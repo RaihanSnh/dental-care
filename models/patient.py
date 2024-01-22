@@ -66,3 +66,24 @@ class Patient(models.Model):
     )
 
     image = fields.Binary(string="", attachment=True)
+
+    state = fields.Selection(
+        string='State',
+        selection=[('new', 'New'), ('inprogress', 'InProgress'), ('done', 'Done'), ('cancel', 'Cancel')],
+        readonly=True,
+        default='new',
+        required=True,
+        track_visibility='onchange'
+    )
+
+    def action_inprogress(self):
+        self.write({'state':'inprogress'})
+
+    def action_done(self):
+        self.write({'state':'done'})
+
+    def action_cancel(self):
+        self.write({'state':'cancel'})
+
+    def action_reset(self):
+        self.write({'state':'new'})

@@ -42,24 +42,24 @@ class Appointment(models.Model):
     
     state = fields.Selection(
         string='State',
-        selection=[('schedule', 'Schedule'), ('pending', 'Pending'), ('examination', 'Examination'), ('cancel', 'Cancel')],
+        selection=[('new', 'New'), ('inprogress', 'InProgress'), ('done', 'Done'), ('cancel', 'Cancel')],
         readonly=True,
-        default='schedule',
+        default='new',
         required=True,
         track_visibility='onchange'
     )
 
-    def action_pending(self):
-        self.write({'state':'pending'})
+    def action_inprogress(self):
+        self.write({'state':'inprogress'})
 
-    def action_examination(self):
-        self.write({'state':'examination'})
+    def action_done(self):
+        self.write({'state':'done'})
 
     def action_cancel(self):
         self.write({'state':'cancel'})
 
     def action_reset(self):
-        self.write({'state':'schedule'})
+        self.write({'state':'new'})
 
     def report_appointment(self):
         return self.env.ref("dental_care.action_report_dental_care").report_action(self)

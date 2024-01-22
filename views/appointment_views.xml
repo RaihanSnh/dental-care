@@ -15,17 +15,20 @@
     </record>
 
     <record id="dental_care_appointment_view_calendar" model="ir.ui.view">
-      <field name="name">dental.care.appointment.view.calendar</field>
-      <field name="model">dental.care.appointment</field>
-      <field name="arch" type="xml">
-        <calendar string="Dental Care Appointment" date_start="date_start" date_stop="date_end" color="doctor_id"/>
-      </field>
+        <field name="name">Appointment Calendar</field>
+        <field name="model">dental.care.appointment</field>
+        <field name="arch" type="xml">
+            <calendar string="Dental Care Appointment" date_start="date_start" date_stop="date_end" color="doctor_id" mode="month" event_open_popup="true" quick_create="0">
+                <field name="patient_id"/>
+                <field name="doctor_id"/>
+                <field name="service_id"/>
+            </calendar>
+        </field>
     </record>
-
 
     <!-- dental_care_appointment search view -->
     <record id="dental_care_appointment_view_search" model="ir.ui.view">
-      <field name="name">dental.care.appointment.view.search</field>
+      <field name="name">Search Appointment</field>
       <field name="model">dental.care.appointment</field>
       <field name="arch" type="xml">
         <search string="Search Appointment">
@@ -50,28 +53,28 @@
 
     <!-- dental.care.appointment form view -->
     <record id="dental_care_appointment_view_form" model="ir.ui.view">
-      <field name="name">dental.care.appointment.view.form</field>
+      <field name="name">Appointment Form</field>
       <field name="model">dental.care.appointment</field>
       <field name="arch" type="xml">
         <form string="">
           <header>
             <button string="Export PDF" type="object" class="oe_highlight" name="report_appointment" />
-            <button type="object" name="action_pending" string="Pending" class="oe_highlight" invisible="state != 'schedule'"/>
-            <button type="object" name="action_examination" string="examination" class="oe_highlight" invisible="state != 'pending'"/>
-            <button type="object" name="action_cancel" string="Cancel" class="oe_highlight" invisible="state not in ['pending', 'examination']" confirm="Are You Sure to do This Action"/>
+            <button type="object" name="action_inprogress" string="InProgress" class="oe_highlight" invisible="state != 'new'"/>
+            <button type="object" name="action_done" string="Done" class="oe_highlight" invisible="state != 'inprogress'"/>
+            <button type="object" name="action_cancel" string="Cancel" class="oe_highlight" invisible="state not in ['inprogress', 'done']" confirm="Are You Sure to do This Action"/>
             <button type="object" name="action_reset" string="Reset Schedule" class="oe_highlight" invisible="state != 'cancel'" confirm="Are You Sure to do This Action"/>
-            <field name="state" widget="statusbar" statusbar_visible="schedule,pending,examination"/>
+            <field name="state" widget="statusbar" statusbar_visible="new,inprogress,done"/>
           </header>
           <sheet>
               <!-- Add your fields here -->
                 <group string="Patient Data">
-                    <field name="patient_id" readonly="state != 'schedule'"/>
-                    <field name="service_id" readonly="state != 'schedule'"/>
+                    <field name="patient_id" readonly="state != 'new'"/>
+                    <field name="service_id" readonly="state != 'new'"/>
                 </group>
                 <notebook>
                   <page name="doctor_id" string="Doctor">
                     <group>
-                      <field name="doctor_id" readonly="state != 'schedule'"/>
+                      <field name="doctor_id" readonly="state != 'new'"/>
                     </group>
                   </page>
                 </notebook>
@@ -84,9 +87,9 @@
                   </page>
                 </notebook>
           </sheet>
-          <div>
-            <field name="message_follower_ids" widget="mail_follower"/>
-            <field name="message_ids" widget="mail_thread"/>
+          <div style="background-color: #ADD8E6;">
+              <field name="message_follower_ids" widget="mail_follower"/>
+              <field name="message_ids" widget="mail_thread"/>
           </div>
         </form>
       </field>
@@ -99,16 +102,11 @@
       <field name="type">ir.actions.act_window</field>
       <field name="res_model">dental.care.appointment</field>
       <field name="view_mode">tree,form,calendar</field>
-      <!-- <field name="view_type">form</field> -->
-      <!-- <field name="domain">[]</field>
-      <field name="context">{}</field>
-      <field name="target">{current}</field> -->
       <field name="help" type="html">
         <p class="oe_view_nocontent_create">
-          <!-- Add Text Here -->
+        
         </p>
         <p>
-          <!-- More details about what a user can do with this object will be OK --> 
         
         </p>
       </field>
