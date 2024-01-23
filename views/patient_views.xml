@@ -108,11 +108,14 @@
     <field name="name">dental.care.patient.view.kanban</field>
     <field name="model">dental.care.patient</field>
     <field name="arch" type="xml">
-        <kanban class="o_kanban_mobile" default_group_by="state" create="1">
+        <kanban class="o_kanban_mobile" default_group_by="state" on_create="action_open_form_popup" quick_create_view="dental.care.dental_care_patient_view_form">
             <templates>
                 <t t-name="kanban-box">
-                    <div t-attf-style="border-left: 8px solid #{record.state.value == 'new' ? 'red' : record.state.value == 'inprogress' ? 'blue' : 'green'}; background-color: hsl(#{Math.random()*360}, 50%, 75%);" class="oe_kanban_global_click">
+                    <t t-set="random_hue" t-value="Math.random()*360"/>
+                    <t t-set="state_color" t-value="record.state == 'new' and '240' or (record.state == 'inprogress' and '60' or '120')"/>
+                      <div t-attf-style="border-left: 8px solid hsl(#{state_color}, 100%, 50%); background-color: hsl(#{random_hue}, 50%, 75%);" class="oe_kanban_global_click">
                         <div class="oe_kanban_details">
+                            <progressbar field="state" colors='{"done": "success", "inprogress": "warning", "new": "info"}' />
                             <div class="oe_kanban_card">
                                 <div class="d-flex">
                                     <div class="oe_avatar_container mr-3">
@@ -123,10 +126,9 @@
                                         <div>Emergency Number: <field name="emergency_number"/></div>
                                         <div>Doctor: <field name="doctor_id"/></div>
                                         <div>Service: <field name="service_id"/></div>
-                                        <div>State: <field name="state"/></div>
                                         <div class="dropdown" style="position: absolute; bottom: 0; right: 0; margin-right: 10px;">
-                                            <button type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="change_state" style="border-radius: 50%; width: 30px; height: 30px; padding: 15px; background: transparent; border: none;">
-</button>
+                                            <button type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="change_state" style="border-radius: 50%; width: 30px; height: 30px; padding: 6px; background: #{record.state.value == 'new' ? 'red' : record.state.value == 'inprogress' ? 'blue' : 'green'}; border: none;">
+                                            </button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                 <a class="dropdown-item" onclick="changeState('inprogress')">In Progress</a>
                                                 <a class="dropdown-item" onclick="changeState('done')">Done</a>

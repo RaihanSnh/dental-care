@@ -61,5 +61,9 @@ class Appointment(models.Model):
     def action_reset(self):
         self.write({'state':'new'})
 
+    def change_state(self, new_state):
+        self.ensure_one()
+        self.state = new_state
+
     def report_appointment(self):
         return self.env.ref("dental_care.action_report_dental_care").report_action(self)

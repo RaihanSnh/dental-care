@@ -87,3 +87,7 @@ class Patient(models.Model):
 
     def action_reset(self):
         self.write({'state':'new'})
+
+    def change_state(self, new_state):
+        self.ensure_one()
+        self.state = new_state
