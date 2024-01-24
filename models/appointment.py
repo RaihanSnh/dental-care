@@ -43,11 +43,23 @@ class Appointment(models.Model):
     state = fields.Selection(
         string='State',
         selection=[('new', 'New'), ('inprogress', 'InProgress'), ('done', 'Done'), ('cancel', 'Cancel')],
-        readonly=True,
         default='new',
         required=True,
         track_visibility='onchange'
     )
+
+    color_class = fields.Char(compute='_compute_color_class')
+
+    @api.depends('state')
+    def _compute_color_class(self):
+        color_dict = {
+            'new': '#17a2b8',  # warna biru/info dalam format HEX
+            'inprogress': '#ffc107',  # warna kuning/warning dalam format HEX
+            'done': '#28a745',  # warna hijau/success dalam format HEX
+            'cancel': '#dc3545',  # warna merah/danger dalam format HEX
+        }
+        for record in self:
+            record.color_class = color_dict.get(record.state, '#17a2b8')
 
     def action_inprogress(self):
         self.write({'state':'inprogress'})
@@ -64,6 +76,10 @@ class Appointment(models.Model):
     def change_state(self, new_state):
         self.ensure_one()
         self.state = new_state
+
+    def get_records(self):
+        # Return a recordset
+        return self.search([])
 
     def report_appointment(self):
         return self.env.ref("dental_care.action_report_dental_care").report_action(self)

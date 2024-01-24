@@ -18,7 +18,7 @@ Long description of module's purpose
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'mail'],
+    'depends': ['base', 'mail', 'web'],
 
     # always loaded
     'data': [
@@ -31,7 +31,12 @@ Long description of module's purpose
         'views/appointment_views.xml',
         'views/res_partner.xml',
 
+
         'reports/appointment_report.xml',
+    ],
+
+    'qweb': [
+        'static/change_state.js'
     ],
 
     # only loaded in demonstration mode

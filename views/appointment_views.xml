@@ -18,10 +18,11 @@
         <field name="name">Appointment Calendar</field>
         <field name="model">dental.care.appointment</field>
         <field name="arch" type="xml">
-            <calendar string="Dental Care Appointment" date_start="date_start" date_stop="date_end" color="doctor_id" mode="month" event_open_popup="true" quick_create="0">
-                <field name="patient_id"/>
-                <field name="doctor_id"/>
-                <field name="service_id"/>
+            <calendar string="Dental Care Appointment" date_start="date_start" date_stop="date_end" color="state" mode="month" event_open_popup="true" quick_create="0" event_limit="5">
+                <field name="state" filters="1"/>
+                <field name="patient_id" filters="1"/>
+                <field name="doctor_id" filters="1"/>
+                <field name="service_id" filters="1"/>
             </calendar>
         </field>
     </record>
@@ -116,29 +117,29 @@
     <field name="name">dental.care.appointment.view.kanban</field>
     <field name="model">dental.care.appointment</field>
     <field name="arch" type="xml">
-        <kanban class="o_kanban_mobile" default_group_by="state" on_create="action_open_form_popup" quick_create_view="dental.care.dental_care_appointment_view_form">
+        <kanban default_group_by="state" on_create="action_open_form_popup" quick_create_view="dental.care.dental_care_appointment_view_form">
             <templates>
                 <t t-name="kanban-box">
                     <t t-set="random_hue" t-value="Math.random()*360"/>
-                    <t t-set="state_color" t-value="record.state == 'new' and 'blue' or (record.state == 'inprogress' and 'yellow' or (record.state == 'done' and 'green' or 'red'))"/>
-<div t-attf-style="border-left: 8px solid #{state_color}; background-color: hsl(#{random_hue}, 50%, 75%);" class="oe_kanban_global_click">
+                      <div t-attf-style="background-color: hsl(#{random_hue}, 50%, 75%); border-color: #{record.color_class}; border-left: 8px solid;" t-att-class="oe_kanban_global_click">
                         <div class="oe_kanban_details">
-                            <progressbar field="state" colors='{"done": "success", "inprogress": "warning", "new": "info"}' />
                             <div class="oe_kanban_card">
                                 <div class="d-flex">
                                     <div class="oe_kanban_content" style="color: #000; margin-left: 15px; word-wrap: break-word; overflow-wrap: break-word; max-width: 100%; padding-right: 20px;">
                                         <h2><field name="patient_id"/></h2>
                                         <div>Doctor: <field name="doctor_id"/></div>
                                         <div>Service: <field name="service_id"/></div>
-                                        <div class="dropdown" style="position: absolute; bottom: 0; right: 0; margin-right: 10px;">
-                                            <button type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="change_state" style="border-radius: 50%; width: 30px; height: 30px; padding: 6px; background: #{record.state.value == 'new' ? 'red' : record.state.value == 'inprogress' ? 'blue' : 'green'}; border: none;">
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <a class="dropdown-item" onclick="changeState('inprogress')">In Progress</a>
-                                                <a class="dropdown-item" onclick="changeState('done')">Done</a>
-                                                <a class="dropdown-item" onclick="changeState('cancel')">Cancel</a>
-                                            </div>
-                                        </div>
+                                        <progressbar field="state" widget="progressbar" colors='{"new": "info", "inprogress": "warning", "done": "success", "cancel": "danger"}' />
+                                        <!-- <div class="dropdown">
+                                          <button name="change_state" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Change State
+                                          <span class="caret"></span></button>
+                                          <ul class="dropdown-menu">
+                                              <li><a t-att-data-id="record.id.raw_value" t-on-click="change_state('new')">New</a></li>
+                                              <li><a t-att-data-id="record.id.raw_value" t-on-click="change_state('inprogress')">In Progress</a></li>
+                                              <li><a t-att-data-id="record.id.raw_value" t-on-click="change_state('done')">Done</a></li>
+                                              <li><a t-att-data-id="record.id.raw_value" t-on-click="change_state('cancel')">Cancel</a></li>
+                                          </ul>
+                                      </div> -->
                                     </div>
                                 </div>
                             </div>

@@ -8,8 +8,6 @@
         <tree>
           <!-- Add your fields here -->
           <field name="patient_id"/>
-          <field name="doctor_id"/>
-          <field name="service_id"/>
           <field name="emergency_number"/>
           <field name="date_of_birth"/>
           <field name="blood_type"/>
@@ -29,8 +27,6 @@
         <search string="Search Patient">
           <!-- Add your fields here -->
           <field name="patient_id"/>
-          <field name="doctor_id"/>
-          <field name="service_id"/>
           <field name="emergency_number"/>
           <field name="date_of_birth"/>
           <field name="blood_type"/>
@@ -40,8 +36,6 @@
           <field name="vaccine_name"/>
 
           <group string="Group By">
-            <filter name="group_by_doctor" string="Doctor" context="{'group_by': 'doctor_id'}"/>
-            <filter name="group_by_service" string="Service" context="{'group_by': 'service_id'}"/>
             <filter name="group_by_blood_type" string="Blood Type" context="{'group_by': 'blood_type'}"/>
           </group>
         </search>
@@ -66,10 +60,6 @@
                         <field name="blood_type" widget='radio' options="{'horizontal': true}"/>
                         <field name="height"/>
                         <field name="weight"/>
-                    </group>
-                    <group string="Hospital Information:">
-                        <field name="doctor_id"/>
-                        <field name="service_id"/>
                     </group>
                     <group string="Medical History">
                         <field name="is_vaccinated"/>
@@ -108,14 +98,12 @@
     <field name="name">dental.care.patient.view.kanban</field>
     <field name="model">dental.care.patient</field>
     <field name="arch" type="xml">
-        <kanban class="o_kanban_mobile" default_group_by="state" on_create="action_open_form_popup" quick_create_view="dental.care.dental_care_patient_view_form">
+        <kanban class="o_kanban_mobile" on_create="action_open_form_popup" quick_create_view="dental.care.dental_care_patient_view_form">
             <templates>
                 <t t-name="kanban-box">
                     <t t-set="random_hue" t-value="Math.random()*360"/>
-                    <t t-set="state_color" t-value="record.state == 'new' and '240' or (record.state == 'inprogress' and '60' or '120')"/>
-                      <div t-attf-style="border-left: 8px solid hsl(#{state_color}, 100%, 50%); background-color: hsl(#{random_hue}, 50%, 75%);" class="oe_kanban_global_click">
+                      <div t-attf-style="border-left: 8px solid; background-color: hsl(#{random_hue}, 50%, 75%);" class="oe_kanban_global_click">
                         <div class="oe_kanban_details">
-                            <progressbar field="state" colors='{"done": "success", "inprogress": "warning", "new": "info"}' />
                             <div class="oe_kanban_card">
                                 <div class="d-flex">
                                     <div class="oe_avatar_container mr-3">
@@ -124,17 +112,10 @@
                                     <div class="oe_kanban_content" style="color: #000; margin-left: 15px;">
                                         <h2><field name="patient_id"/></h2>
                                         <div>Emergency Number: <field name="emergency_number"/></div>
-                                        <div>Doctor: <field name="doctor_id"/></div>
-                                        <div>Service: <field name="service_id"/></div>
-                                        <div class="dropdown" style="position: absolute; bottom: 0; right: 0; margin-right: 10px;">
-                                            <button type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="change_state" style="border-radius: 50%; width: 30px; height: 30px; padding: 6px; background: #{record.state.value == 'new' ? 'red' : record.state.value == 'inprogress' ? 'blue' : 'green'}; border: none;">
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <a class="dropdown-item" onclick="changeState('inprogress')">In Progress</a>
-                                                <a class="dropdown-item" onclick="changeState('done')">Done</a>
-                                                <a class="dropdown-item" onclick="changeState('cancel')">Cancel</a>
-                                            </div>
-                                        </div>
+                                        <div>Date Of Birth: <field name="date_of_birth"/></div>
+                                        <div>Blood Type: <field name="blood_type"/></div>
+                                        <div>Height: <field name="height"/></div>
+                                        <div>Weight: <field name="weight"/></div>
                                     </div>
                                 </div>
                             </div>
