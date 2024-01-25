@@ -53,10 +53,10 @@ class Appointment(models.Model):
     @api.depends('state')
     def _compute_color_class(self):
         color_dict = {
-            'new': '#17a2b8',  # warna biru/info dalam format HEX
-            'inprogress': '#ffc107',  # warna kuning/warning dalam format HEX
-            'done': '#28a745',  # warna hijau/success dalam format HEX
-            'cancel': '#dc3545',  # warna merah/danger dalam format HEX
+            'new': '#17a2b8',  
+            'inprogress': '#ffc107', 
+            'done': '#28a745', 
+            'cancel': '#dc3545',  
         }
         for record in self:
             record.color_class = color_dict.get(record.state, '#17a2b8')

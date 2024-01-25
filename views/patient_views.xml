@@ -98,7 +98,7 @@
     <field name="name">dental.care.patient.view.kanban</field>
     <field name="model">dental.care.patient</field>
     <field name="arch" type="xml">
-        <kanban class="o_kanban_mobile" on_create="action_open_form_popup" quick_create_view="dental.care.dental_care_patient_view_form">
+        <kanban class="o_kanban_mobile" on_create="quick_create" quick_create_view="dental.care.dental_care_patient_view_form">
             <templates>
                 <t t-name="kanban-box">
                     <t t-set="random_hue" t-value="Math.random()*360"/>

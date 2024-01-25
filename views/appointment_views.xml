@@ -117,7 +117,7 @@
     <field name="name">dental.care.appointment.view.kanban</field>
     <field name="model">dental.care.appointment</field>
     <field name="arch" type="xml">
-        <kanban default_group_by="state" on_create="action_open_form_popup" quick_create_view="dental.care.dental_care_appointment_view_form">
+        <kanban default_group_by="state" on_create="quick_create" quick_create_view="dental.care.dental_care_appointment_view_form">
             <templates>
                 <t t-name="kanban-box">
                     <t t-set="random_hue" t-value="Math.random()*360"/>
@@ -130,16 +130,6 @@
                                         <div>Doctor: <field name="doctor_id"/></div>
                                         <div>Service: <field name="service_id"/></div>
                                         <progressbar field="state" widget="progressbar" colors='{"new": "info", "inprogress": "warning", "done": "success", "cancel": "danger"}' />
-                                        <!-- <div class="dropdown">
-                                          <button name="change_state" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Change State
-                                          <span class="caret"></span></button>
-                                          <ul class="dropdown-menu">
-                                              <li><a t-att-data-id="record.id.raw_value" t-on-click="change_state('new')">New</a></li>
-                                              <li><a t-att-data-id="record.id.raw_value" t-on-click="change_state('inprogress')">In Progress</a></li>
-                                              <li><a t-att-data-id="record.id.raw_value" t-on-click="change_state('done')">Done</a></li>
-                                              <li><a t-att-data-id="record.id.raw_value" t-on-click="change_state('cancel')">Cancel</a></li>
-                                          </ul>
-                                      </div> -->
                                     </div>
                                 </div>
                             </div>
