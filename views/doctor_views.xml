@@ -9,8 +9,6 @@
           <!-- Add your fields here -->
           <field name="doctor_id"/>
           <field name="service_id"/>
-          <field name="active" invisible="1"/>
-          <field name="doctor_id" options="{'invisible': '[[\'status\',\'=\',\'on_leave\']]'}"/>
         </tree>
       </field>
     </record>
@@ -25,8 +23,8 @@
           <field name="doctor_id"/>
           <field name="service_id"/>
 
-          <filter string="Available" domain="[('status', '=', 'available')]" name="available"/>
-          <filter string="On Leave" domain="[('status', '=', 'on_leave')]" name="on_leave"/>
+          <filter name="status" string="All Doctor" domain="['|', ('status', '=', 'available'), ('status', '=', 'on_leave')]"/>
+<filter name="status" string="Doctor Leave" domain="[('status', '=', 'on_leave')]"/>
           <group string="Group By">
             <filter name="group_by_service" string="Service" context="{'group_by': 'service_id'}"/>
           </group>
@@ -40,13 +38,18 @@
     <field name="model">dental.care.doctor</field>
       <field name="arch" type="xml">
         <form string="">
+        <header>
+            <field name="status" widget="statusbar" clickable="True"/>
+            <button name="toggle_status" string="Toggle Status" type="object" class="oe_highlight"/>
+        </header>
+
             <sheet>
                 <field name="image" widget="image" class="oe_avatar"></field>
                     <h1><group><field name="doctor_id"></field></group></h1>
                 <group>
                     <!-- Add your fields here -->
                     <field name="service_id"/>
-                    <field name="status"/>
+                    <field name="status" invisible="1"/>
                 </group>
             </sheet>
         </form>

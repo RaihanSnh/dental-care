@@ -22,31 +22,30 @@ class Doctor(models.Model):
     image = fields.Binary(string="", attachment=True)
 
     status = fields.Selection(
-        string='Status',
-        selection=[('available', 'Available'), ('on_leave', 'On Leave')],
-        default='available',
-        required=True,
+    string='Status',
+    selection=[('available', 'Available'), ('on_leave', 'On Leave')],
+    default='available',
+    required=True,
     )
 
     active = fields.Boolean(string='Active', compute='_compute_active', store=True)
 
-    # @api.onchange('status')
-    # def _onchange_status(self):
-    #     if self.status == 'on_leave':
-    #         self.active = False
-    #     else:
-    #         self.active = True
-
-
-    # @api.onchange('status')
-    # def _onchange_status(self):
-    #     for record in self:
-    #         if record.status == 'on_leave':
-    #             record.active = False
-    #         else:
-    #             record.active = True
+    @api.onchange('status')
+    def _onchange_status(self):
+        for record in self:
+            if record.status == 'on_leave':
+                record.active = False
+            else:
+                record.active = True
 
     @api.depends('status')
     def _compute_active(self):
         for doctor in self:
             doctor.active = doctor.status != 'on_leave'
+
+    def toggle_status(self):
+        for doctor in self:
+            if doctor.status == 'available':
+                doctor.status = 'on_leave'
+            else:
+                doctor.status = 'available'
